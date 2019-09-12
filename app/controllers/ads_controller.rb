@@ -1,4 +1,5 @@
 class AdsController < ApplicationController
+  # load_and_authorize_resource
   before_action :set_ad, only: [:show, :edit, :update, :destroy]
 
   # GET /ads
@@ -24,6 +25,7 @@ class AdsController < ApplicationController
   # POST /ads
   # POST /ads.json
   def create
+    # @ad = current_user.ads.new(params[:ad])
     @ad = Ad.new(ad_params)
 
     respond_to do |format|
