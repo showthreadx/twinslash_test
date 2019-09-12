@@ -16,6 +16,7 @@ class AdsTest < ApplicationSystemTestCase
 
     fill_in "Description", with: @ad.description
     fill_in "Title", with: @ad.title
+    fill_in "User", with: @ad.user_id
     click_on "Create Ad"
 
     assert_text "Ad was successfully created"
@@ -28,6 +29,7 @@ class AdsTest < ApplicationSystemTestCase
 
     fill_in "Description", with: @ad.description
     fill_in "Title", with: @ad.title
+    fill_in "User", with: @ad.user_id
     click_on "Update Ad"
 
     assert_text "Ad was successfully updated"
