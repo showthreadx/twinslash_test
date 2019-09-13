@@ -10,6 +10,7 @@ class Ability
       can :create, Ad
       can :destroy, Ad, user_id: user.id
       can :edit, Ad, user_id: user.id
+      can :pending, Ad, user_id: user.id
     end
 
     if user && user.admin?

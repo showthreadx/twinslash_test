@@ -1,5 +1,5 @@
 class AdsController < ApplicationController
-  before_action :set_ad, only: [:show, :edit, :update, :destroy]
+  before_action :set_ad, only: [:show, :edit, :update, :destroy, :approve, :pending]
 
   # GET /ads
   # GET /ads.json
@@ -11,8 +11,15 @@ class AdsController < ApplicationController
   end
 
   def approve
-    @ad.update_attributes status: 3
     authorize! :approve, @ad
+    @ad = Ad.find(params[:id])
+    @ad.update_attributes status: 3
+  end
+
+  def pending
+    authorize! :pending, Ad
+    @ad = Ad.find(params[:id])
+    @ad.update_attributes status: 1
   end
 
   # GET /ads/1
@@ -82,6 +89,6 @@ class AdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ad_params
-      params.require(:ad).permit(:title, :description, :user_id)
+      params.require(:ad).permit(:title, :description, :user_id, :status)
     end
 end
