@@ -10,5 +10,20 @@
   <%= @ad.description %>
 </p>
 
+<p>
+  <strong>User_email:</strong>
+  <%= User.find(@ad.user_id).email %>
+</p>
+
+<% if @ad.images.attached? %>
+<p>
+  <strong>Images:</strong>
+  <br>
+  <% @ad.images.each do |image| %>
+    <%= image_tag image.variant(resize: "300x300") %>
+  <% end %>
+</p>
+<% end %>
+
 <%= link_to 'Edit', edit_ad_path(@ad) %> |
 <%= link_to 'Back', ads_path %>
