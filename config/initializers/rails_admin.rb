@@ -31,11 +31,15 @@ RailsAdmin.config do |config|
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory
-    new
+    new do
+      except ['Ad']
+    end
     export
     bulk_delete
     show
-    edit
+    edit do
+      except ['Ad']
+    end
     delete
     show_in_app
 
