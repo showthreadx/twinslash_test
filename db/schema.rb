@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2019_09_13_042317) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
-    t.string "type"
+    t.string "category"
     t.index ["user_id"], name: "index_ads_on_user_id"
   end
 
