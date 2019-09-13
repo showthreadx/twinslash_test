@@ -11,8 +11,8 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @ad.user %>
+  <strong>User_email:</strong>
+  <%= User.find(@ad.user_id).email %>
 </p>
 
 <%= link_to 'Edit', edit_ad_path(@ad) %> |
