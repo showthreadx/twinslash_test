@@ -21,6 +21,11 @@
     <%= form.text_area :description %>
   </div>
 
+  <div class="field">
+    <%= form.label :images %><br>
+    <%= form.file_field :images, multiple: true %>
+  </div>
+
   <!-- <div class="field">
     <%= form.label :user_id %>
     <%= form.text_field :user_id %>
