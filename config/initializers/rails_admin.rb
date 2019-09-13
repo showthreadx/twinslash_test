@@ -1,12 +1,15 @@
 RailsAdmin.config do |config|
 
 
-  config.authorize_with do
-    # binding.pry
-    redirect_to main_app.root_path unless (warden.user && warden.user.admin == true)
-   end
+  # config.authorize_with do
+  #   redirect_to main_app.root_path unless (warden.user && warden.user.admin == true)
+  # end
 
-  config.model 'Ad' do 
+  config.authorize_with :cancancan
+  config.parent_controller = 'ApplicationController'
+  config.current_user_method { current_user } # refers to the current_user
+
+  config.model 'Ad' do
     edit do
       configure :title do
         hide

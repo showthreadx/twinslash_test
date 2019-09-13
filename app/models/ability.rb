@@ -8,13 +8,19 @@ class Ability
 
     if user.present? && !user.admin?
       can :create, Ad
-      can :destroy, Ad, user_id: user.id
-      can :edit, Ad, user_id: user.id
+      can :destroy, Ad, user_id: user.id, status: !3
+      can :edit, Ad, user_id: user.id, status: !3
       can :pending, Ad, user_id: user.id
     end
 
     if user && user.admin?
-      can :approve, Ad
+      can :access, :rails_admin # only allow admin users to access Rails Admin
+      can :read, :dashboard
+      can :destroy, Ad
+      can :edit, Ad
+      can :edit, User
+      can :destroy, User
+      can :create, User
     end
 
     # Define abilities for the passed in user here. For example:
