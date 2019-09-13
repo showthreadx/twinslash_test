@@ -5,6 +5,22 @@ RailsAdmin.config do |config|
     redirect_to main_app.root_path unless warden.user.admin == true
    end
 
+  config.model 'Ad' do 
+    edit do
+      configure :title do
+        hide
+      end
+      configure :description do
+        hide
+      end
+      configure :user do
+        hide
+      end
+      configure :images do
+        hide
+      end
+    end
+  end
   ### Popular gems integration
 
   ## == Devise ==
@@ -37,9 +53,7 @@ RailsAdmin.config do |config|
     export
     bulk_delete
     show
-    edit do
-      except ['Ad']
-    end
+    edit
     delete
     show_in_app
 
