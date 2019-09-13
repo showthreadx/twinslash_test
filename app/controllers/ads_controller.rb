@@ -1,4 +1,5 @@
 class AdsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_ad, only: [:show, :edit, :update, :destroy, :approve, :pending]
 
   # GET /ads
@@ -11,13 +12,11 @@ class AdsController < ApplicationController
   end
 
   def approve
-    authorize! :approve, @ad
     @ad = Ad.find(params[:id])
     @ad.update_attributes status: 3
   end
 
   def pending
-    authorize! :pending, Ad
     @ad = Ad.find(params[:id])
     @ad.update_attributes status: 1
     redirect_to :root
@@ -30,19 +29,17 @@ class AdsController < ApplicationController
 
   # GET /ads/new
   def new
-    authorize! :new, Ad
     @ad = Ad.new
   end
 
   # GET /ads/1/edit
   def edit
-    authorize! :edit, @ad
+    @ad = Ad.find(params[:id])
   end
 
   # POST /ads
   # POST /ads.json
   def create
-    authorize! :create, Ad
     @ad = Ad.new(ad_params)
     @ad.user_id = current_user.id
 
@@ -74,7 +71,6 @@ class AdsController < ApplicationController
   # DELETE /ads/1
   # DELETE /ads/1.json
   def destroy
-    authorize! :destroy, @ad
     @ad.destroy
     respond_to do |format|
       format.html { redirect_to ads_url, notice: 'Ad was successfully deleted.' }
@@ -83,13 +79,14 @@ class AdsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ad
-      @ad = Ad.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def ad_params
-      params.require(:ad).permit(:title, :description, :user_id, :status, images: [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_ad
+    @ad = Ad.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def ad_params
+    params.require(:ad).permit(:title, :description, :user_id, :status, images: [])
+  end
 end
