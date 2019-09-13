@@ -20,6 +20,7 @@ class AdsController < ApplicationController
     authorize! :pending, Ad
     @ad = Ad.find(params[:id])
     @ad.update_attributes status: 1
+    redirect_to :root
   end
 
   # GET /ads/1

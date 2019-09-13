@@ -6,15 +6,21 @@ class Ability
   def initialize(user)
     can :read, :all
 
-    if user.present?
+    if user.present? && !user.admin?
       can :create, Ad
-      can :destroy, Ad, user_id: user.id
-      can :edit, Ad, user_id: user.id
+      can :destroy, Ad, user_id: user.id, status: !3
+      can :edit, Ad, user_id: user.id, status: !3
       can :pending, Ad, user_id: user.id
     end
 
     if user && user.admin?
-      can :approve, Ad
+      can :access, :rails_admin
+      can :read, :dashboard
+      can :destroy, Ad
+      can :destroy, User
+      can :edit, Ad
+      can :edit, User
+      can :create, User
     end
 
     # Define abilities for the passed in user here. For example:
