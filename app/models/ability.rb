@@ -14,12 +14,12 @@ class Ability
     end
 
     if user && user.admin?
-      can :access, :rails_admin # only allow admin users to access Rails Admin
+      can :access, :rails_admin
       can :read, :dashboard
       can :destroy, Ad
+      can :destroy, User
       can :edit, Ad
       can :edit, User
-      can :destroy, User
       can :create, User
     end
 
