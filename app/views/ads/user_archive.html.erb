@@ -1,26 +1,31 @@
-<h1>List of my archive ads</h1>
-
+<h1 class='text-center'>List of my archive ads</h1>
+<% unless @archive_ads.empty? %>
   <table class="table table-sm">
     <thead>
       <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Status</th>
+        <th class="text-center">Title</th>
+        <th class="text-center">Description</th>
+        <th class="text-center">Status</th>
       </tr>
     </thead>
 
     <tbody>
       <% @archive_ads.each do |ad| %>
         <tr>
-          <td><%= ad.title %></td>
-          <td><%= ad.description %></td>
-          <td><%= ad.status %></td>
-          <td><%= link_to 'Show', ad, class: 'btn btn-sm btn-primary' %></td>
-          <td><%= link_to 'Edit', edit_ad_path(ad), class: 'btn btn-sm btn-primary' %></td>
-          <td><%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-primary' %></td>
-          <td><%= link_to 'Send for moderation', status_new_ad_path(ad), method: :put, data: { confirm: 'This ad will be sent for moderation. Proceed?' }, class: 'btn btn-sm btn-success' %></td>
+          <td class="text-center"><%= ad.title %></td>
+          <td class="text-center"><%= ad.description %></td>
+          <td class="text-center"><%= ad.status %></td>
+          <td class="text-center">
+            <%= link_to 'Show', ad, class: 'btn btn-sm btn-primary' %></td>
+            <%= link_to 'Edit', edit_ad_path(ad), class: 'btn btn-sm btn-primary' %></td>
+            <%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-primary' %></td>
+            <%= link_to 'Send for moderation', status_new_ad_path(ad), method: :put, data: { confirm: 'This ad will be sent for moderation. Proceed?' }, class: 'btn btn-sm btn-success' %>
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
+<% else %>
+  <h3 class='text-center'>The list is empty</h3>
+<% end %>  
   

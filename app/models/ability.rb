@@ -10,7 +10,6 @@ class Ability
       can :create, Ad
       can :user_ads, Ad
       can :user_archive, Ad
-      cannot :update_resource, User
       can :update, Ad, user_id: user.id, status: 0
       can :destroy, Ad, user_id: user.id, status: 0
       can :destroy, Ad, user_id: user.id, status: 1

@@ -1,33 +1,41 @@
-<h1 class='text-center'>List of published ads</h1>
-
 <% unless @ads.empty? %>
-  <table class="table table-sm table-bordered">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>User_email</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-success">
+      <div class="panel-heading text-center"><h2 class='text-center'>List of published ads</h3></div>
+      <div class="panel-body">
+          <table class="table table-sm table-bordered">
+              <thead class='thead-dark'>
+                <tr>
+                  <th class="text-center">Title</th>
+                  <th class="text-center">Description</th>
+                  <th class="text-center">User_email</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+          
+              <tbody>
+                <% @ads.each do |ad| %>
+                  <tr>
+                    <td class="text-center"><%= ad.title %></td>
+                    <td class="text-center"><%= truncate(ad.description, :length => 30) %></td>
+                    <td class="text-center"><%= User.find(ad.user_id).email %></td>
+                    <td class="text-center">
+                      <%= link_to 'Show', ad, class: 'btn btn-sm btn-primary' %>
+                      <%= link_to 'Edit', edit_ad_path(ad), class: 'btn btn-sm btn-primary' %>
+                      <%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-primary' %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <tbody>
-      <% @ads.each do |ad| %>
-        <tr>
-          <td><%= ad.title %></td>
-          <td><%= truncate(ad.description, :length => 30) %></td>
-          <td><%= User.find(ad.user_id).email %></td>
-          <td>
-            <%= link_to 'Show', ad, class: 'btn btn-sm btn-primary' %>
-            <%= link_to 'Edit', edit_ad_path(ad), class: 'btn btn-sm btn-primary' %>
-            <%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-primary' %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
 <% else %>
-  <h3>The list is empty</h3>
+  <h3 class='text-center'>The list is empty</h3>
 <% end %>
 
 

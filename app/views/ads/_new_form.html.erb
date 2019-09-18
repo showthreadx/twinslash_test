@@ -1,22 +1,19 @@
-<%= form_with(model: ad, local: true) do |form| %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading text-center">Enter these fields to create new Ad:</div>
+      <div class="panel-body">
+          <%= simple_form_for @ad do |f| %>
+          <%= f.label :title, "Title"%>
+          <%= f.input :title, label:false, required: true, placeholder: "Choose the name of your Ad" %>
+          <%= f.input :description, label: "Description", required: true, hint: "Be short" %>
+          <%= f.file_field :images, required: true, multiple: true %>
+          <div class="text-center" style="margin-top: 40px"> 
+            <%= f.button :submit, :class => "btn btn-success" %>
+            <%= link_to 'Back', user_ads_ads_path, class: "btn btn-info" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :images %><br>
-    <%= form.file_field :images, multiple: true %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Save Ad"%>
-  </div>
-  
-<% end %>
+</div>>

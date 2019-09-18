@@ -45,7 +45,7 @@ class AdsController < ApplicationController
     @ad.user_id = current_user.id
     if @ad.save
       flash[:success] = 'Ad was succesfully created! You can see it in Your ads list.'
-      redirect_to request.referrer
+      redirect_to user_ads_ads_path
     else
       render 'new'
     end
