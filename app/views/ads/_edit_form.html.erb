@@ -1,0 +1,41 @@
+<%= form_with(model: ad, local: true) do |form| %>
+
+  <% if can? :update, Ad, :title %>
+    <div class="field">
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
+  <% end %>
+  
+  <% if can? :update, Ad, :description %>
+    <div class="field">
+      <%= form.label :description %>
+      <%= form.text_area :description %>
+    </div>
+  <% end %>
+
+  <% if can? :update, Ad, :images %>
+    <div class="field">
+      <%= form.label :images %><br>
+      <%= form.file_field :images, multiple: true %>
+    </div>
+  <% end %>
+
+  <% if can? :update, Ad, :status %>
+    <!-- <div class="field">
+      <%= form.label :images %><br>
+      <%= form.file_field :images, multiple: true %>
+    </div> -->
+  <% end %>
+
+  <% if can? :update, Ad, :category %>
+    <!-- <div class="field">
+      <%= form.label :images %><br>
+      <%= form.file_field :images, multiple: true %>
+    </div> -->
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit "Save Ad"%>
+  </div>
+<% end %>

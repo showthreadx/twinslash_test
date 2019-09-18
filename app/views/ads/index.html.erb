@@ -1,14 +1,13 @@
-<p id="notice"><%= notice %></p>
+<h1 class='text-center'>List of published ads</h1>
 
-<h1>List of published ads</h1>
 <% unless @ads.empty? %>
-  <table>
+  <table class="table table-sm table-bordered">
     <thead>
       <tr>
         <th>Title</th>
         <th>Description</th>
         <th>User_email</th>
-        <th colspan="3"></th>
+        <th>Actions</th>
       </tr>
     </thead>
 
@@ -16,11 +15,13 @@
       <% @ads.each do |ad| %>
         <tr>
           <td><%= ad.title %></td>
-          <td><%= ad.description %></td>
+          <td><%= truncate(ad.description, :length => 30) %></td>
           <td><%= User.find(ad.user_id).email %></td>
-          <td><%= link_to 'Show', ad %></td>
-          <td><%= link_to 'Edit', edit_ad_path(ad) %></td>
-          <td><%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td>
+            <%= link_to 'Show', ad, class: 'btn btn-sm btn-primary' %>
+            <%= link_to 'Edit', edit_ad_path(ad), class: 'btn btn-sm btn-primary' %>
+            <%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-primary' %>
+          </td>
         </tr>
       <% end %>
     </tbody>
@@ -29,41 +30,4 @@
   <h3>The list is empty</h3>
 <% end %>
 
-<% if current_user && current_user.admin %>
-  <%= link_to 'Admin Panel', rails_admin.dashboard_path %>
-<% end %>
-
-<% if current_user && !current_user.admin %>
-  <%= link_to 'New Ad', new_ad_path %>
-  <h1>List of my saved ads</h1>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Status</th>
-        <th colspan="2"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @my_ads.each do |ad| %>
-        <tr>
-          <td><%= ad.title %></td>
-          <td><%= ad.description %></td>
-          <td><%= ad.status %></td>
-          <td><%= link_to 'Show', ad %></td>
-          <td><%= link_to 'Edit', edit_ad_path(ad) %></td>
-          <td><%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% unless ad.pending? %>
-            <td><%= link_to 'Send for moderation', pending_ad_path(ad), method: :put, data: { confirm: 'This ad will be sent for moderation. Proceed?' } %></td>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <br>
-<% end %>
 

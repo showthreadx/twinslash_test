@@ -1,0 +1,32 @@
+<h1 class='text-center'>List of my ads</h1>
+  <table class="table table-sm table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @user_ads.each do |ad| %>
+        <tr>
+          <td><%= ad.title %></td>
+          <td><%= ad.description %></td>
+          <td><%= ad.status %></td>
+          <td>
+            <%= link_to 'Show', ad, class: 'btn btn-sm btn-primary' %>
+            <%= link_to 'Edit', edit_ad_path(ad), class: 'btn btn-sm btn-primary' %>
+            <%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-primary' %>
+            <% if can? :status_new, ad %>
+            <%= link_to 'Send for moderation', status_new_ad_path(ad), method: :put, data: { confirm: 'This ad will be sent for moderation. Proceed?' }, class: 'btn btn-sm btn-success' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="text-center">
+    <%= link_to 'Add new Advertising', new_ad_path, class: 'btn btn-lg btn-warning' %>
+  </div>

@@ -24,6 +24,7 @@
   <% end %>
 </p>
 <% end %>
-
-<%= link_to 'Edit', edit_ad_path(@ad) %> |
+<% if can? :update, Ad, :title %>
+<%= link_to 'Edit', edit_ad_path(@ad) %> 
+<% end %>
 <%= link_to 'Back', ads_path %>

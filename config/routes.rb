@@ -2,10 +2,12 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :ads do
     member do
-      patch :approve
-      put :approve
-      patch :pending
-      put :pending
+      patch :status_new
+      put :status_new
+    end
+    collection do
+      get 'user_ads' => 'ads#user_ads', as: :user_ads
+      get 'user_archive' => 'ads#user_archive', as: :user_archive
     end
   end
   resources :photos do
