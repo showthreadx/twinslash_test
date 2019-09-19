@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-  rescue_from CanCan::AccessDenied do |exception|
-    flash[:warning] = exception.message
-    redirect_to request.referrer
+  rescue_from CanCan::AccessDenied do 
+    flash[:warning] = 'You have not permission to do this action'
+    redirect_to main_app.root_path
   end
   rescue_from ActionController::UnpermittedParameters do
     flash[:warning] = 'You have not permission to update these params'

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
@@ -27,6 +25,7 @@ class Ability
       can :access, :rails_admin
       can :read, :dashboard
       can :destroy, Ad
+      can :edit, Ad
       can :update, Ad, :status
       can :update, Ad, :category
       can :create, User
