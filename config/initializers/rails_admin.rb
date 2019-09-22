@@ -1,22 +1,17 @@
 RailsAdmin.config do |config|
-  config.authorize_with :cancancan
+  config.main_app_name = ["Advertising Project", "Admin"]
+  config.authorize_with :cancancan, AdminAbility
   config.parent_controller = 'ApplicationController'
-  config.current_user_method { current_user } # refers to the current_user
+  config.current_user_method { current_user }
 
   config.model 'Ad' do
     edit do
-      configure :title do
-        hide
-      end
-      configure :description do
-        hide
-      end
-      configure :user do
-        hide
-      end
-      configure :images do
-        hide
-      end
+      field :status
+      field :ad_type
+    end
+    list do
+      exclude_fields :created_at
+      exclude_fields :updated_at
     end
   end
 
@@ -32,9 +27,5 @@ RailsAdmin.config do |config|
     edit
     delete
     show_in_app
-
-    ## With an audit adapter, you can add:
-    # history_index
-    # history_show
   end
 end

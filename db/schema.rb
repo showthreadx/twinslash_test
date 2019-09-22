@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_13_042317) do
+ActiveRecord::Schema.define(version: 2019_09_21_163248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,14 +36,21 @@ ActiveRecord::Schema.define(version: 2019_09_13_042317) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "ad_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "ads", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.bigint "user_id"
+    t.bigint "ad_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
-    t.string "category"
+    t.index ["ad_type_id"], name: "index_ads_on_ad_type_id"
     t.index ["user_id"], name: "index_ads_on_user_id"
   end
 
@@ -56,6 +63,8 @@ ActiveRecord::Schema.define(version: 2019_09_13_042317) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

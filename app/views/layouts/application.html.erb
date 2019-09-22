@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TwinslashTest</title>
+    <title>Advertising Project</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,13 +10,76 @@
   </head>
 
   <body>
-  <% if user_signed_in? %>
-    <strong>Logged in as <%= current_user.email%> </strong>
-    <%= link_to "Sign out", destroy_user_session_path%>
-  <% else %>
-    <%= link_to "Sign up", new_user_registration_path%>
-    <%= link_to "Sign in", new_user_session_path%>
-  <% end %>
+      <header>
+          <nav class="navbar navbar-default ">
+              <div class="container">
+                <div class="navbar-header">
+                  <p class="navbar-brand">The Advertising Project</p>
+                </div>
+                <div id="navbar">
+                  <ul class="nav navbar-nav navbar-left">
+                  <li style="margin-right:5px;">
+                    <p class="navbar-btn">
+                        <%= link_to 'Published Ads', root_path, class: 'btn btn-warning' %>
+                    </p>
+                  </li>
+                  <% if current_user && current_user.admin %>
+                    <li>
+                      <p class="navbar-btn">
+                          <%= link_to 'Go to Admin Panel', rails_admin.dashboard_path, class: 'btn btn-warning' %>
+                      </p>
+                    </li>
+                  <% end %>
+                  <% if can? :user_ads, Ad %>
+                    <li style="margin-right:5px;">
+                        <p class="navbar-btn">
+                            <%= link_to 'My ads', user_ads_ads_path, class: 'btn btn-warning' %>
+                        </p>
+                    </li>
+                  <% end %>
+                  <% if can? :user_archive, Ad %>
+                    <li>
+                      <p class="navbar-btn">
+                          <%= link_to 'Archive', user_archive_ads_path, class: 'btn btn-warning' %>
+                      </p>
+                    </li>
+                  <% end %>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                  <% if user_signed_in? %>
+                    <li>
+                      <p class="navbar-btn">
+                        <%= link_to "Edit Profile", edit_user_registration_path, class: 'btn btn-success'%>
+                      </p>  
+                    </li>
+                    
+                    <li><p class="navbar-text">Logged in as <%= current_user.email%></p></li>
+                    <li>
+                      <p class="navbar-btn">
+                        <%= link_to "Sign out", destroy_user_session_path, class: 'btn btn-danger'%>
+                      </p>
+                    </li>
+                  <% else %>
+                    <li><%= link_to 'Sign up', new_user_registration_path, class: 'navbar-brand' %></li>
+                    <li><%= link_to 'Sign in', new_user_session_path, class: 'navbar-brand' %></li>
+                  <% end %>  
+                  </ul>
+                </div>
+              </div>
+          </nav>
+      </header>
+    <div class="container">
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>">
+            <%= value %>
+          </div>
+        <% end %>
+    </div> 
     <%= yield %>
+    <footer>
+        <nav class="navbar navbar-fixed-bottom">
+        </nav>
+    </footer>
   </body>
 </html>
+

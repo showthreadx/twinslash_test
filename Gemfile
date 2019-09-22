@@ -26,6 +26,12 @@ gem 'cancancan'
 gem 'devise', ">= 4.7.1"
 gem 'pry'
 gem 'rails_admin'
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'jquery-rails'
+gem 'simple_form'
+gem 'devise-bootstrapped'
+gem 'whenever'
+gem 'will_paginate', '~> 3.1.1'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
