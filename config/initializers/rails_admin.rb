@@ -1,12 +1,13 @@
 RailsAdmin.config do |config|
-  config.authorize_with :cancancan
+  config.main_app_name = ["Advertising Project", "Admin"]
+  config.authorize_with :cancancan, AdminAbility
   config.parent_controller = 'ApplicationController'
   config.current_user_method { current_user }
 
   config.model 'Ad' do
     edit do
       field :status
-      field :category
+      field :ad_type
     end
     list do
       exclude_fields :created_at

@@ -12,7 +12,13 @@ class AdsController < ApplicationController
   def status_new
     @ad.update_attributes status: 1
     flash[:success] = 'Success! Ad will be published after admin approval.'
-    redirect_to main_app.root_path
+    redirect_to user_ads_ads_path
+  end
+
+  def status_draft
+    @ad.update_attributes status: 0
+    flash[:success] = 'The Ad was successfully converted to Draft Type.'
+    redirect_to user_archive_ads_path
   end
 
   def user_ads
@@ -21,6 +27,14 @@ class AdsController < ApplicationController
 
   def user_archive
     @archive_ads = Ad.where(['user_id = ? and status = ?', current_user.id, 5])
+  end
+
+  def delete_image
+    binding.pry
+    @image = ActiveStorage::Attachment.find(params[:image_id])
+    @image.purge
+    flash[:success] = 'Image were successfully deleted.'
+    redirect_to edit_ad_path
   end
 
   # GET /ads/1
@@ -54,9 +68,7 @@ class AdsController < ApplicationController
   # PATCH/PUT /ads/1
   # PATCH/PUT /ads/1.json
   def update
-    # binding.pry
-    # params.require(:ad).permit(current_ability.permitted_attributes(:update, @ad))
-    if @ad.update(params.require(:ad).permit(current_ability.permitted_attributes(:update, @ad)))
+    if @ad.update(update_params)
       flash[:success] = 'The Ad was successfully updated!'
       redirect_to request.referrer
     else
@@ -82,6 +94,14 @@ class AdsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def ad_params
-    params.require(:ad).permit(:title, :description, :user_id, :status, :category, images: [])
+    params.require(:ad).permit(:title, :description, :user_id, :status, images: [])
+  end
+
+  def update_params
+    if current_user.admin?
+      params.require(:ad).permit(current_ability.permitted_attributes(:update, @ad))
+    else
+      params.require(:ad).permit(:title, :description, :user_id, :status, images: [])
+    end
   end
 end

@@ -14,10 +14,15 @@
           <nav class="navbar navbar-default ">
               <div class="container">
                 <div class="navbar-header">
-                  <%= link_to 'Advertising Project', root_path, class: 'navbar-brand' %>
+                  <p class="navbar-brand">The Advertising Project</p>
                 </div>
                 <div id="navbar">
                   <ul class="nav navbar-nav navbar-left">
+                  <li style="margin-right:5px;">
+                    <p class="navbar-btn">
+                        <%= link_to 'Published Ads', root_path, class: 'btn btn-warning' %>
+                    </p>
+                  </li>
                   <% if current_user && current_user.admin %>
                     <li>
                       <p class="navbar-btn">

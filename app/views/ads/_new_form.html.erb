@@ -9,7 +9,7 @@
           <%= f.label :title, "Title"%>
           <%= f.input :title, label:false, required: true, placeholder: "Enter the name of your Ad" %>
           <%= f.input :description, label: "Description", required: true, hint: "Be short" %>
-          <%= f.file_field :images, required: true, multiple: true %>
+          <%= f.file_field :images, multiple: true %>
           <div class="text-center" style="margin-top: 30px"> 
             <%= f.button :submit, :class => "btn btn-lg btn-success" %>
             <%= link_to 'Back', user_ads_ads_path, class: "btn btn-lg btn-info" %>

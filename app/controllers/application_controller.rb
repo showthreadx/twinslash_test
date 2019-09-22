@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
     flash[:warning] = 'You have not permission to update these params'
     redirect_to request.referrer
   end
+  rescue_from ActiveRecord::RecordNotFound do
+    flash[:warning] = 'Can not find this record. Please, try again'
+    redirect_to main_app.root_path
+  end
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 

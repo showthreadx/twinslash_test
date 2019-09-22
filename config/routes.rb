@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :ads do
     member do
-      patch :status_new
       put :status_new
+      put :status_draft
+      delete :delete_image
     end
     collection do
       get 'user_ads' => 'ads#user_ads', as: :user_ads

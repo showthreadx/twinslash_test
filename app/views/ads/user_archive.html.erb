@@ -1,31 +1,48 @@
-<h1 class='text-center'>List of my archive ads</h1>
-<% unless @archive_ads.empty? %>
-  <table class="table table-sm">
-    <thead>
-      <tr>
-        <th class="text-center">Title</th>
-        <th class="text-center">Description</th>
-        <th class="text-center">Status</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @archive_ads.each do |ad| %>
-        <tr>
-          <td class="text-center"><%= ad.title %></td>
-          <td class="text-center"><%= ad.description %></td>
-          <td class="text-center"><%= ad.status %></td>
-          <td class="text-center">
-            <%= link_to 'Show', ad, class: 'btn btn-sm btn-primary' %></td>
-            <%= link_to 'Edit', edit_ad_path(ad), class: 'btn btn-sm btn-primary' %></td>
-            <%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-primary' %></td>
-            <%= link_to 'Send for moderation', status_new_ad_path(ad), method: :put, data: { confirm: 'This ad will be sent for moderation. Proceed?' }, class: 'btn btn-sm btn-success' %>
-          </td>
-        </tr>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-success">
+      <div class="panel-heading text-center">
+        <h2 class='text-center'>List of my archived ads</h2>
+        <p class='text-center'>(Published ads are automatically archived 3 days after publication)</p>
+      </div>
+      <div class="panel-body">
+      <% unless @archive_ads.empty? %>
+        <table class="table table-sm table-bordered">
+          <thead class='thead-dark'>
+            <tr>
+              <th class="text-center">Title</th>
+              <th class="text-center">Description</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+      
+          <tbody>
+            <% @archive_ads.each do |ad| %>
+              <tr>
+                <td class="text-center"><%= ad.title %></td>
+                <td class="text-center"><%= truncate(ad.description, :length => 30) %></td>
+                <td class="text-center"><%= ad.status %></td>
+                <td class="text-center">
+                  <%= link_to 'Show', ad, class: 'btn btn-sm btn-primary' %>
+                  <% if can? :update, ad %>
+                    <%= link_to 'Edit', edit_ad_path(ad), class: 'btn btn-sm btn-primary' %>
+                  <% end %>
+                  <% if can? :destroy, ad %>
+                    <%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-primary' %>
+                  <% end %>
+                  <% if can? :status_draft, ad %>
+                    <%= link_to 'Convert in Draft Ad', status_draft_ad_path(ad), method: :put, data: { confirm: 'This ad will be converted in Draft Ad. Proceed?' }, class: 'btn btn-sm btn-success' %>
+                  <% end %>  
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <h2 class='text-center'>The list is empty</h2>
       <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <h3 class='text-center'>The list is empty</h3>
-<% end %>  
+      </div>
+      </div>
+      </div>
   
