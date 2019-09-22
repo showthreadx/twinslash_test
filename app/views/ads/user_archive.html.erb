@@ -39,6 +39,12 @@
             <% end %>
           </tbody>
         </table>
+        <div class="digg_pagination text-center">
+          <div class="page_info">
+            <%= page_entries_info @archive_ads %>
+          </div>
+          <%= will_paginate @archive_ads, :container => false %>
+        </div>
       <% else %>
         <h2 class='text-center'>The list is empty</h2>
       <% end %>

@@ -37,9 +37,15 @@
           <h2 class='text-center'>The list is empty</h2>
           <p class='text-center'>You can add new Advertising <%= link_to 'Here', user_ads_ads_path, class: 'btn btn-sm btn-success' %></p>
         <% end %>
+        <div class="digg_pagination text-center">
+          <div class="page_info">
+            <%= page_entries_info @ads %>
+          </div>
+          <%= will_paginate @ads, :container => false %>
+        </div>
+        </div>
       </div>
     </div>
-  </div>
 </div>
 
 
