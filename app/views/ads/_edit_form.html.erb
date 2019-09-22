@@ -6,23 +6,12 @@
       </div>
       <div class="panel-body">
           <%= simple_form_for @ad do |f| %>
-            <% if can? :update, Ad, :title %>
               <%= f.label :title, "Title" %>
               <%= f.input :title, label:false, required: true, placeholder: "Enter the name of your Ad" %>
-            <% end %>  
-            <% if can? :update, Ad, :description %>
               <%= f.label :description, "Description" %>
               <%= f.input :description, label: false, required: true, hint: "Be short" %>
-            <% end %> 
-            <% if can? :update, Ad, :status %>
-              <%= f.label :status, "Status" %>
-              <%= f.select :status, options_for_select([['new_ad', 1], ['published_ad', 4]]), label: false %>
-            <% end %>
-            <% if can? :update, Ad, :category %>
-              <!-- <%= f.label :category, "Category" %> -->
-              <!-- <%= f.select :category, collection: Ad.categories, label: false %> -->
-            <% end %>
-            <% if can? :update, Ad, :images %> 
+              <%= f.label :ad_type_id, "Select the type for your ad:" %>
+              <%= f.input :ad_type_id, label: false, required: true, collection: AdType.all, prompt: "Select Ad Type" %>
                 <h5>You can add more images to Advertising:</h5>
                 <%= f.file_field :images, multiple: true, class: "btn btn-primary btn-sm" %>
                 <br>
@@ -44,7 +33,6 @@
                   </tbody>
                 </table>
               <% end %>
-            <% end %>
 
             <div class="text-center" style="margin-top: 30px"> 
               <%= f.button :submit, :class => "btn btn-lg btn-success" %>

@@ -30,7 +30,6 @@ class AdsController < ApplicationController
   end
 
   def delete_image
-    binding.pry
     @image = ActiveStorage::Attachment.find(params[:image_id])
     @image.purge
     flash[:success] = 'Image were successfully deleted.'
@@ -57,10 +56,11 @@ class AdsController < ApplicationController
   def create
     @ad = Ad.new(ad_params)
     @ad.user_id = current_user.id
-    if @ad.save
+    if @ad.save!
       flash[:success] = 'Ad was succesfully created! You can see it in Your ads list.'
       redirect_to user_ads_ads_path
     else
+      flash[:warning] = "Something go wrong. Please, try again"
       render 'new'
     end
   end
@@ -94,14 +94,14 @@ class AdsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def ad_params
-    params.require(:ad).permit(:title, :description, :user_id, :status, images: [])
+    params.require(:ad).permit(:title, :description, :user_id, :status, :ad_type_id, images: [])
   end
 
   def update_params
     if current_user.admin?
       params.require(:ad).permit(current_ability.permitted_attributes(:update, @ad))
     else
-      params.require(:ad).permit(:title, :description, :user_id, :status, images: [])
+      params.require(:ad).permit(:title, :description, :user_id, :status, :ad_type_id, images: [])
     end
   end
 end

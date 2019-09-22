@@ -9,6 +9,8 @@
           <%= f.label :title, "Title"%>
           <%= f.input :title, label:false, required: true, placeholder: "Enter the name of your Ad" %>
           <%= f.input :description, label: "Description", required: true, hint: "Be short" %>
+          <%= f.label :ad_type_id, "Select the type for your ad:" %>
+          <%= f.input :ad_type_id, label: false, required: true, collection: AdType.all, prompt: "Select Ad Type" %>
           <%= f.file_field :images, multiple: true %>
           <div class="text-center" style="margin-top: 30px"> 
             <%= f.button :submit, :class => "btn btn-lg btn-success" %>
