@@ -29,7 +29,7 @@ AdType.create(ad_types)
     user_id: 2,
     status: 'published_ad',
     title: Faker::ProgrammingLanguage.name,
-    description: Faker::Hipster.paragraphs(number: 6)
+    description: Faker::Hipster.paragraphs(number: 2)
   )
 end
 
@@ -39,27 +39,47 @@ end
     user_id: 3,
     status: 'published_ad',
     title: Faker::ProgrammingLanguage.name,
-    description: Faker::Hipster.paragraphs(number: 6)
+    description: Faker::Hipster.paragraphs(number: 2)
   )
 end
 
-12.times do
+6.times do
   Ad.create(
     ad_type_id: 1,
     user_id: 2,
     status: 'draft_ad',
     title: Faker::ProgrammingLanguage.name,
-    description: Faker::Hipster.paragraphs(number: 6)
+    description: Faker::Hipster.paragraphs(number: 2)
   )
 end
 
-12.times do
+6.times do
   Ad.create(
     ad_type_id: 2,
     user_id: 3,
     status: 'draft_ad',
     title: Faker::ProgrammingLanguage.name,
-    description: Faker::Hipster.paragraphs(number: 6)
+    description: Faker::Hipster.paragraphs(number: 2)
+  )
+end
+
+6.times do
+  Ad.create(
+    ad_type_id: 1,
+    user_id: 2,
+    status: 'new_ad',
+    title: Faker::ProgrammingLanguage.name,
+    description: Faker::Hipster.paragraphs(number: 2)
+  )
+end
+
+6.times do
+  Ad.create(
+    ad_type_id: 2,
+    user_id: 3,
+    status: 'new_ad',
+    title: Faker::ProgrammingLanguage.name,
+    description: Faker::Hipster.paragraphs(number: 2)
   )
 end
 
@@ -69,7 +89,7 @@ end
     user_id: 2,
     status: 'archived_ad',
     title: Faker::ProgrammingLanguage.name,
-    description: Faker::Hipster.paragraphs(number: 6)
+    description: Faker::Hipster.paragraphs(number: 2)
   )
 end
 
@@ -79,7 +99,7 @@ end
     user_id: 3,
     status: 'archived_ad',
     title: Faker::ProgrammingLanguage.name,
-    description: Faker::Hipster.paragraphs(number: 6)
+    description: Faker::Hipster.paragraphs(number: 2)
   )
 end
 
@@ -89,7 +109,7 @@ end
     user_id: 2,
     status: 'canceled_ad',
     title: Faker::ProgrammingLanguage.name,
-    description: Faker::Hipster.paragraphs(number: 6)
+    description: Faker::Hipster.paragraphs(number: 2)
   )
 end
 
@@ -99,6 +119,6 @@ end
     user_id: 3,
     status: 'canceled_ad',
     title: Faker::ProgrammingLanguage.name,
-    description: Faker::Hipster.paragraphs(number: 6)
+    description: Faker::Hipster.paragraphs(number: 2)
   )
 end
