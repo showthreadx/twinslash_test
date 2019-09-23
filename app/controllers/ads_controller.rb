@@ -6,7 +6,7 @@ class AdsController < ApplicationController
   # GET /ads
   # GET /ads.json
   def index
-    @ads = Ad.where(status: 4).paginate(page: params[:page], per_page: 5) 
+    @ads = Ad.where(status: 4).paginate(page: params[:page], per_page: 10) 
   end
 
   def status_new
@@ -22,11 +22,11 @@ class AdsController < ApplicationController
   end
 
   def user_ads
-    @user_ads = Ad.where(['user_id = ? and status != ?', current_user.id, 4]).paginate(page: params[:page], per_page: 5) 
+    @user_ads = Ad.where(['user_id = ? and status != ? and status != ?', current_user.id, 4, 5]).paginate(page: params[:page], per_page: 10) 
   end
 
   def user_archive
-    @archive_ads = Ad.where(['user_id = ? and status = ?', current_user.id, 5]).paginate(page: params[:page], per_page: 5) 
+    @archive_ads = Ad.where(['user_id = ? and status = ?', current_user.id, 5]).paginate(page: params[:page], per_page: 10) 
   end
 
   def delete_image

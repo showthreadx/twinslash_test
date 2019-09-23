@@ -1,4 +1,6 @@
 class Ad < ApplicationRecord
+  validates :title, presence: true, length: { maximum: 15 }
+  validates :description, :user_id, :ad_type_id, presence: true
   has_many_attached :images
   belongs_to :user
   belongs_to :ad_type

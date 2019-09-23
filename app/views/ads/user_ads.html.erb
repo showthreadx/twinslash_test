@@ -48,10 +48,7 @@
                   </tbody>
                 </table>
                 <div class="digg_pagination text-center">
-                  <div class="page_info">
-                    <%= page_entries_info @user_ads %>
-                  </div>
-                  <%= will_paginate @user_ads, :container => false %>
+                  <%= will_paginate @user_ads, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, :container => false %>
                 </div>
             <% else %>
                 <h3 class='text-center'>The list is empty</h3>
