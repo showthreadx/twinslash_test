@@ -38,10 +38,7 @@
           <p class='text-center'>You can add new Advertising <%= link_to 'Here', user_ads_ads_path, class: 'btn btn-sm btn-success' %></p>
         <% end %>
         <div class="digg_pagination text-center">
-          <div class="page_info">
-            <%= page_entries_info @ads %>
-          </div>
-          <%= will_paginate @ads, :container => false %>
+          <%= will_paginate @ads, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, :container => false %>
         </div>
         </div>
       </div>
