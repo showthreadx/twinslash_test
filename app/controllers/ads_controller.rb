@@ -68,7 +68,7 @@ class AdsController < ApplicationController
   # PATCH/PUT /ads/1
   # PATCH/PUT /ads/1.json
   def update
-    if @ad.update(update_params)
+    if @ad.update(ad_params)
       flash[:success] = 'The Ad was successfully updated!'
       redirect_to request.referrer
     else
@@ -95,13 +95,5 @@ class AdsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def ad_params
     params.require(:ad).permit(:title, :description, :user_id, :status, :ad_type_id, images: [])
-  end
-
-  def update_params
-    if current_user.admin?
-      params.require(:ad).permit(current_ability.permitted_attributes(:update, @ad))
-    else
-      params.require(:ad).permit(:title, :description, :user_id, :status, :ad_type_id, images: [])
-    end
   end
 end
