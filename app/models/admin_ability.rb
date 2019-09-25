@@ -12,6 +12,7 @@ class AdminAbility
       can :update, User
       can :create, AdType
       can :destroy, AdType
+      can :approve, Ad
     end
   end
 end
