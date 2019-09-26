@@ -1,24 +1,24 @@
-<div id='ads-table'>
-  <div class="row">
+<div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-success">
-        <div class="panel-heading">
+        <div class="panel-heading text-center">
           <div class="row">
             <div class="col-md-6">
-                <h2 class='text-right'>List of published ads:</h2>
+              <h2 class='text-right'>List of found ads:</h2>
             </div>
             <div class="col-md-6">
               <div class="text-left" style="margin-top: 20px">
-                <%= form_tag(ads_path, method: "get", remote: true, class: 'form-inline') do %>
-                  <%= text_field_tag :search, params[:search], label: 'Search by published ads:', class: 'form-control', placeholder: "Enter search params:" %>
+                <%= form_tag( URI(request.referer).path, method: "get", remote: true, class: 'form-inline') do %>
+                  <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: "Enter search params" %>
                   <%= submit_tag "Search", class: 'btn btn-default btn-sm btn-submit' %>
+                  <%= link_to 'Back', :back, class: 'btn btn-sm btn-warning' %>
                 <% end %>  
-              </div>      
-            </div> 
-          </div>
+              </div>    
+            </div>
+          </div>  
         </div>
         <div class="panel-body">
-        <% unless @ads.empty? %>
+        <% unless @search_result_ads.empty? %>
             <table class="table table-sm table-bordered">
                 <thead class='thead-dark'>
                   <tr>
@@ -31,7 +31,7 @@
                 </thead>
             
                 <tbody>
-                  <% @ads.each do |ad| %>
+                  <% @search_result_ads.each do |ad| %>
                     <tr>
                       <td class="text-center"><%= ad.title %></td>
                       <td class="text-center"><%= truncate(ad.description, :length => 30) %></td>
@@ -51,22 +51,9 @@
                 </tbody>
               </table>
           <% else %>
-            <h2 class='text-center'>The list is empty</h2>
-            <p class='text-center'>You can add new Advertising <%= link_to 'Here', user_ads_ads_path, class: 'btn btn-sm btn-success' %></p>
+            <h2 class='text-center'>Sorry, no ads were found :(</h2>
           <% end %>
-          <div class="digg_pagination text-center">
-            <%= will_paginate @ads, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, :container => false %>
-          </div>
           </div>
         </div>
       </div>
   </div>
-</div>
-
-<div id="search-results">
-
-</div>
-
-
-
-

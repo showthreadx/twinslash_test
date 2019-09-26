@@ -4,7 +4,14 @@ class AdsController < ApplicationController
   ActionController::Parameters.action_on_unpermitted_parameters = :raise
 
   def index
-    @ads = Ad.where(status: 4).paginate(page: params[:page], per_page: 10) 
+    if params[:search]
+      @search_result_ads = Ad.where(status: 4).search_by_title_and_description(params[:search])
+      respond_to do |format|
+        format.js { render partial: 'search-results'}
+      end
+    else
+      @ads = Ad.where(status: 4).paginate(page: params[:page], per_page: 10)
+    end
   end
 
   def status_new
@@ -20,11 +27,25 @@ class AdsController < ApplicationController
   end
 
   def user_ads
-    @user_ads = Ad.where(['user_id = ? and status != ? and status != ?', current_user.id, 4, 5]).paginate(page: params[:page], per_page: 10) 
+    if params[:search]
+      @search_result_ads = Ad.where(['user_id = ? and status != ? and status != ?', current_user.id, 4, 5]).search_by_title_and_description(params[:search])
+      respond_to do |format|
+        format.js { render partial: 'search-results'}
+      end
+    else
+      @user_ads = Ad.where(['user_id = ? and status != ? and status != ?', current_user.id, 4, 5]).paginate(page: params[:page], per_page: 10) 
+    end
   end
 
   def user_archive
-    @archive_ads = Ad.where(['user_id = ? and status = ?', current_user.id, 5]).paginate(page: params[:page], per_page: 10) 
+    if params[:search]
+      @search_result_ads = Ad.where(['user_id = ? and status = ?', current_user.id, 5]).search_by_title_and_description(params[:search])
+      respond_to do |format|
+        format.js { render partial: 'search-results'}
+      end
+    else
+      @archive_ads = Ad.where(['user_id = ? and status = ?', current_user.id, 5]).paginate(page: params[:page], per_page: 10) 
+    end
   end
 
   def delete_image
