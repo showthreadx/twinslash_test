@@ -53,6 +53,10 @@
           <% else %>
             <h2 class='text-center'>Sorry, no ads were found :(</h2>
           <% end %>
+          <div class="digg_pagination text-center">
+            <!-- <%= will_paginate @search_result_ads, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, :container => false %> -->
+            <%= paginate @search_result_ads, :container => false %>
+          </div>
           </div>
         </div>
       </div>

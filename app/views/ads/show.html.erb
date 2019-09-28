@@ -21,7 +21,7 @@
     <% end %>
     <div class="text-center" style='margin-bottom: 20px'>
         <span class="label label-lg label-primary"> Last update <%= @ad.updated_at.strftime("%b %d, %Y") %></span>
-        <span class="label label-lg label-warning"> Ad_type_id:  <%= @ad.ad_type_id %></span>
+        <span class="label label-lg label-warning"> Ad_type:  <%= AdType.find(@ad.ad_type_id).name %></span>
         <span class="label label-lg label-success"> user_email:  <%= User.find(@ad.user_id).email %></span>
     </div>
     <div class="text-center">

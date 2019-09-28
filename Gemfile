@@ -36,6 +36,7 @@ gem 'whenever'
 gem 'will_paginate', '~> 3.1.1'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem 'bullet', group: 'development'
+gem 'ransack'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

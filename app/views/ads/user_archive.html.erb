@@ -1,20 +1,30 @@
 <div id="ads-table">
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-9 col-md-offset-2">
       <div class="panel panel-success">
         <div class="panel-heading text-center">
           <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <h2 class='text-right'>List of my archived ads:</h2>
               </div>
-              <div class="col-md-6">
-                <div class="text-left" style="margin-top: 20px">
+              <div class="col-md-4">
+                <div class="text-center" style="margin-top: 20px">
                   <%= form_tag(user_archive_ads_path, method: "get", remote: true, class: 'form-inline') do %>
+                    <%= label_tag(:search,'Search:') %>
                     <%= text_field_tag :search, params[:search], label: 'Search by published ads:', class: 'form-control', placeholder: "Enter search params:" %>
-                    <%= submit_tag "Search", class: 'btn btn-default btn-sm btn-submit' %>
+                    <%= submit_tag "Search", class: 'btn btn-sm btn-success' %>
                   <% end %>  
                 </div>   
               </div>
+              <div class="col-md-4">
+              <div class="text-left" style="margin-top: 20px">
+                <%= search_form_for @filter, url: user_archive_ads_path, builder: SimpleForm::FormBuilder, wrapper: :horizontal_form, html: { class: 'form-inline'} do |f| %>
+                  <%= label_tag(:ad_type_id_eq,'Choose Ad Type:') %>
+                  <%= f.input :ad_type_id_eq, collection: AdType.all, required: false, label: false %>
+                  <%= f.button :submit, "Filter", class: 'btn btn-sm btn-success' %>
+                <% end %>
+              </div>
+            </div>
           </div>
         </div>
         <div class="panel-body">

@@ -4,13 +4,14 @@ class AdsController < ApplicationController
   ActionController::Parameters.action_on_unpermitted_parameters = :raise
 
   def index
+    @filter = Ad.ransack(params[:q])
     if params[:search]
-      @search_result_ads = Ad.where(status: 4).search_by_title_and_description(params[:search])
+      @search_result_ads = Ad.where(status: 4).search_by_title_and_description(params[:search]).paginate(page: params[:page], per_page: 10)
       respond_to do |format|
         format.js { render partial: 'search-results'}
       end
     else
-      @ads = Ad.where(status: 4).paginate(page: params[:page], per_page: 10)
+      @ads = @filter.result.where(status: 4).paginate(page: params[:page], per_page: 10)
     end
   end
 
@@ -27,24 +28,26 @@ class AdsController < ApplicationController
   end
 
   def user_ads
+    @filter = Ad.ransack(params[:q])
     if params[:search]
-      @search_result_ads = Ad.where(['user_id = ? and status != ? and status != ?', current_user.id, 4, 5]).search_by_title_and_description(params[:search])
+      @search_result_ads = Ad.where(['user_id = ? and status != ? and status != ?', current_user.id, 4, 5]).search_by_title_and_description(params[:search]).paginate(page: params[:page], per_page: 10)
       respond_to do |format|
         format.js { render partial: 'search-results'}
       end
     else
-      @user_ads = Ad.where(['user_id = ? and status != ? and status != ?', current_user.id, 4, 5]).paginate(page: params[:page], per_page: 10) 
+      @user_ads = @filter.result.where(['user_id = ? and status != ? and status != ?', current_user.id, 4, 5]).paginate(page: params[:page], per_page: 10) 
     end
   end
 
   def user_archive
+    @filter = Ad.ransack(params[:q])
     if params[:search]
-      @search_result_ads = Ad.where(['user_id = ? and status = ?', current_user.id, 5]).search_by_title_and_description(params[:search])
+      @search_result_ads = Ad.where(['user_id = ? and status = ?', current_user.id, 5]).search_by_title_and_description(params[:search]).paginate(page: params[:page], per_page: 10)
       respond_to do |format|
         format.js { render partial: 'search-results'}
       end
     else
-      @archive_ads = Ad.where(['user_id = ? and status = ?', current_user.id, 5]).paginate(page: params[:page], per_page: 10) 
+      @archive_ads = @filter.result.where(['user_id = ? and status = ?', current_user.id, 5]).paginate(page: params[:page], per_page: 10) 
     end
   end
 

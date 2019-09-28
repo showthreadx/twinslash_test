@@ -4,19 +4,31 @@
       <div class="panel panel-success">
         <div class="panel-heading">
           <div class="row">
-            <div class="col-md-6">
-                <h2 class='text-right'>List of published ads:</h2>
+            <div class="col-md-4">
+                <h2 class='text-center'>List of published ads:</h2>
             </div>
-            <div class="col-md-6">
-              <div class="text-left" style="margin-top: 20px">
-                <%= form_tag(ads_path, method: "get", remote: true, class: 'form-inline') do %>
-                  <%= text_field_tag :search, params[:search], label: 'Search by published ads:', class: 'form-control', placeholder: "Enter search params:" %>
-                  <%= submit_tag "Search", class: 'btn btn-default btn-sm btn-submit' %>
-                <% end %>  
+            <div class="col-md-4">
+              <div class="text-center" style="margin-top: 20px">
+                <div class="row">
+                  <%= form_tag(ads_path, method: "get", remote: true, class: 'form-inline') do %>
+                    <%= label_tag(:search,'Search:') %>
+                    <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: "Enter search params:" %>
+                    <%= submit_tag "Search", class: 'btn btn-sm btn-success' %>
+                  <% end %>   
+                </div> 
               </div>      
             </div> 
+            <div class="col-md-4">
+              <div class="text-center" style="margin-top: 20px">
+                <%= search_form_for @filter, url: ads_path, builder: SimpleForm::FormBuilder, wrapper: :horizontal_form, html: { class: 'form-inline'} do |f| %>
+                  <%= label_tag(:ad_type_id_eq,'Choose Ad Type:') %>
+                  <%= f.input :ad_type_id_eq, collection: AdType.all, required: false, label: false %>
+                  <%= f.button :submit, "Filter", class: 'btn btn-sm btn-success' %>
+                <% end %>
+              </div>
+            </div>
+            </div>
           </div>
-        </div>
         <div class="panel-body">
         <% unless @ads.empty? %>
             <table class="table table-sm table-bordered">
@@ -64,7 +76,6 @@
 </div>
 
 <div id="search-results">
-
 </div>
 
 

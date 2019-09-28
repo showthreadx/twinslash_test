@@ -47,13 +47,12 @@
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
                   <% if user_signed_in? %>
-                    <li>
+                    <li><p class="navbar-text"><%= current_user.email%></p></li>
+                    <li style='margin-right: 10px'>
                       <p class="navbar-btn">
                         <%= link_to "Edit Profile", edit_user_registration_path, class: 'btn btn-success'%>
                       </p>  
                     </li>
-                    
-                    <li><p class="navbar-text">Logged in as <%= current_user.email%></p></li>
                     <li>
                       <p class="navbar-btn">
                         <%= link_to "Sign out", destroy_user_session_path, class: 'btn btn-danger'%>
@@ -85,10 +84,6 @@
         <% end %>
     </div> 
     <%= yield %>
-    <footer>
-        <nav class="navbar navbar-fixed-bottom">
-        </nav>
-    </footer>
   </body>
 </html>
 
