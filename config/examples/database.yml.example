@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: ads_development
+  pool: 5
+  timeout: 5000
+  username: showthreadx
+  password: showthreadx 
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: ads_test
+  pool: 5
+  timeout: 5000
+  username: showthreadx 
+  password: showthreadx
