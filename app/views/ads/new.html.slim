@@ -1,0 +1,18 @@
+.row
+  .col-md-4.col-md-offset-4
+    .panel.panel-primary
+      .panel-heading.text-center
+        h2.text-center
+          = t(:new_ad)
+      .panel-body
+        = simple_form_for @ad do |f|
+          = f.label :title, t(:title)
+          = f.input :title, label:false, required: true, placeholder: t(:title_placeholder)
+          = f.input :description, label: t(:description), required: true, hint: t(:description_hint)
+          = f.label :ad_type_id, t(:type_select)
+          = f.input :ad_type_id, label: false, required: true, collection: AdType.all, prompt: t(:type_select_prompt)
+          = f.file_field :images, multiple: true
+          .text-center[style="margin-top: 30px"]
+            = f.button :submit, t(:create_ad_button), :class => "btn btn-lg btn-success"
+            = link_to t(:back), user_ads_ads_path, class: "btn btn-lg btn-info"
+| > 

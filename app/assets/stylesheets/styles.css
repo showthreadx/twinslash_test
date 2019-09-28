@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+}
+
+ .btn {
+   margin: 0px 3px;
+ }
+
+ #btn-locale {
+   margin-top: 11px;
+ }
+
+ #q_ad_type_id_eq, #search {
+   margin-left: 4px;
+ }
+
+.navbar .container{
+  width: 70%;
+}
+

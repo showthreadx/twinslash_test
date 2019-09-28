@@ -1,0 +1,61 @@
+header
+  nav.navbar.navbar-default
+    .container
+      .navbar-header
+        p.navbar-brand
+          | The Advertising Project
+      #navbar
+        ul.nav.navbar-nav.navbar-left
+          li
+            p.navbar-btn
+              = link_to t(:nav_main), root_path, class: 'btn btn-warning'
+          - if current_user && current_user.admin
+            li
+              p.navbar-btn
+                = link_to t(:nav_admin_panel), rails_admin.dashboard_path, class: 'btn btn-success'
+          - if can? :user_ads, Ad
+            li
+              p.navbar-btn
+                = link_to t(:nav_my_ads), user_ads_ads_path, class: 'btn btn-warning'
+          - if can? :user_archive, Ad
+            li
+              p.navbar-btn
+                = link_to t(:nav_archive), user_archive_ads_path, class: 'btn btn-warning'
+          - if current_user && !current_user.admin
+            li
+              p.navbar-btn
+                = link_to t(:new_ad), new_ad_path, class: 'btn btn-success'
+        ul.nav.navbar-nav.navbar-right
+          - if I18n.locale == :en
+            li
+              = link_to 'RU', locale: :ru
+          - else I18n.locale == :ru
+            li
+              = link_to 'EN', locale: :en
+          - if user_signed_in?
+            li
+              p.navbar-text
+                = current_user.email
+            li
+              p.navbar-btn
+                = link_to t(:edit_profile), edit_user_registration_path, class: 'btn btn-success'
+            li
+              p.navbar-btn
+                = link_to t(:sign_out), destroy_user_session_path, class: 'btn btn-danger'
+          - else
+            li
+              p.navbar-text
+                = t(:please_sign_in_up)
+            li
+              p.navbar-btn
+                = link_to t(:sign_in), new_user_session_path, class: 'btn btn-success'
+            li
+              p.navbar-btn
+                = link_to t(:sign_up), new_user_registration_path, class: 'btn btn-primary'
+      .container
+      - flash.each do |key, value|
+        |  <div class="alert alert-
+        = key
+        | "> 
+        = value
+                    

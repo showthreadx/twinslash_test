@@ -1,0 +1,51 @@
+.row
+  .col-md-8.col-md-offset-2
+    .panel.panel-success
+      .panel-heading.text-center
+        .row
+          .col-md-6
+            h2.text-right
+              | List of found ads:
+          .col-md-6
+            .text-left[style="margin-top: 20px"]
+              = form_tag( URI(request.referer).path, method: "get", remote: true, class: 'form-inline') do
+                = text_field_tag :search, params[:search], class: 'form-control', placeholder: "Enter search params"
+                = submit_tag "Search", class: 'btn btn-default btn-sm btn-submit'
+                = link_to 'Back', :back, class: 'btn btn-sm btn-warning'
+      .panel-body
+        - unless @search_result_ads.empty?
+          table.table.table-sm.table-bordered
+            thead.thead-dark
+              tr
+                th.text-center
+                  | Title
+                th.text-center
+                  | Description
+                th.text-center
+                  | User_email
+                th.text-center
+                  | Ad Type
+                th.text-center
+                  | Actions
+            tbody
+              - @search_result_ads.each do |ad|
+                tr
+                  td.text-center
+                    = ad.title
+                  td.text-center
+                    = truncate(ad.description, :length => 30)
+                  td.text-center
+                    = User.find(ad.user_id).email
+                  td.text-center
+                    = AdType.find(ad.ad_type_id).name
+                  td.text-center
+                    = link_to 'Show', ad, class: 'btn btn-sm btn-primary'
+                    - if can? :update, ad
+                      = link_to 'Edit', edit_ad_path(ad), class: 'btn btn-sm btn-primary'
+                    - if can? :destroy, ad
+                      = link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-primary'
+        - else
+          h2.text-center
+            | Sorry, no ads were found :(
+        .digg_pagination.text-center
+          = paginate @search_result_ads, :container => false

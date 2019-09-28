@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  scope "(:locale)", locale: /en|ru/ do 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :ads do
     member do
@@ -17,4 +18,5 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root :to => "ads#index" 
+end
 end

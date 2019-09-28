@@ -1,33 +1,57 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  new_ad: "Create new Ad"
+  title: 'Title'
+  title_placeholder: 'Enter the title:'
+  description: 'Description'
+  description_hint: 'Be short'
+  type_select: 'Select the type of your ad:'
+  type_select_prompt: 'Select type:'
+  back: 'Back'
+  create_ad_button: 'Create Ad'
+  my_archived_ads: 'List of my archived ads:'
+  search: 'Search:'
+  search_by_published: 'Search by published ads:'
+  search_placeholder: 'Enter search params:'
+  search_submit: 'Search'
+  choose_ad_type: 'Choose Ad Type:'
+  filter_submit: 'Filter'
+  show: 'Show'
+  edit: 'Edit'
+  delete: 'Delete'
+  are_you_sure: 'Are you sure?'
+  to_draft: 'Convert to Draft Ad'
+  are_you_sure_draft: 'This ad will be converted in Draft Ad. Proceed?'
+  the_list_is_empty: 'The list is empty :('
+  status: 'Status:'
+  actions: 'Actions:'
+  my_ads: 'List of my Ads:'
+  send_for_moderation: 'Send for moderation'
+  are_you_sure_new: 'This ad will be sent for moderation. Proceed?'
+  published_ads: 'List of published Ads:'
+  email: 'Email:'
+  ad_type: 'Ad Type:'
+  you_can_add_new: "You can add new Advertising"
+  here: 'Here'
+  images: 'Images:'
+  no_images: 'No images attached'
+  update: "Update:"
+  nav_main: "Main page"
+  nav_admin_panel: 'Go to Admin Panel'
+  nav_my_ads: 'My Ads'
+  nav_archive: "Archive"
+  edit_profile: 'Edit Profile'
+  sign_out: 'Sign out'
+  sign_in: 'Sign in'
+  sign_up: 'Sign up'
+  please_sign_in_up: "Please, sign in of sing up:"
+  edit_my_profile: 'Edit my Profile:'
+  update_my_profile: 'Update my Profile'
+  delete_my_profile: "Delete my Account"
+  you_can_delete_your_account: "You can delete your account"
+  first_name: 'First Name'
+  last_name: 'Last Name'
+  leave_blank: ' (leave blank if you dont want to change it)'
+  current_password: 'Current password'
+  come_back: 'Come back againg :)'
+  password: 'Password'
+  password_confirm: 'Confirm password'

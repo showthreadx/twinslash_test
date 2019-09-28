@@ -1,0 +1,33 @@
+.container
+  .jumbotron
+    h1.text-center
+      = @ad.title
+    p
+      = @ad.description
+    hr.my-4
+    - if @ad.images.attached?
+      p.text-center
+        strong
+          = t(:images)
+        br
+      .text-center
+        - @ad.images.each do |image|
+          = image_tag image.variant(resize: "180x180")
+    - else
+      h3.text-center
+        = t(:no_images)
+      hr.my-4
+    .text-center[style="margin-bottom: 20px"]
+      span.label.label-lg.label-primary
+        = t(:update)
+        = @ad.updated_at.strftime("%b %d, %Y")
+      span.label.label-lg.label-warning
+        = t(:ad_type)
+        = AdType.find(@ad.ad_type_id).name
+      span.label.label-lg.label-success
+        = t(:email)
+        = User.find(@ad.user_id).email
+    .text-center
+      - if can? :update, @ad
+        = link_to t(:edit), edit_ad_path(@ad), class: "btn btn-lg btn-warning"
+      = link_to t(:back), :back, class: "btn btn-lg btn-primary"

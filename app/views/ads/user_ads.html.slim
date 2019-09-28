@@ -1,0 +1,57 @@
+#ads-table
+  .row
+    .col-md-8.col-md-offset-2
+      .panel.panel-success
+        .panel-heading.text-center
+          .row
+            .col-md-4
+              h2.text-center
+                = t(:my_ads)
+            .col-md-4
+              .text-left[style="margin-top: 20px"]
+                = form_tag(user_ads_ads_path, method: "get", remote: true, class: 'form-inline') do
+                  = label_tag(:search, t(:search))
+                  = text_field_tag :search, params[:search], label: t(:search_by_published), class: 'form-control', placeholder: t(:search_placeholder)
+                  = submit_tag t(:search_submit), class: 'btn btn-sm btn-success'
+            .col-md-4
+              .text-left[style="margin-top: 20px"]
+                = search_form_for @filter, url: user_archive_ads_path, builder: SimpleForm::FormBuilder, wrapper: :horizontal_form, html: { class: 'form-inline'} do |f|
+                  = label_tag(:ad_type_id_eq, t(:choose_ad_type))
+                  = f.input :ad_type_id_eq, collection: AdType.all, required: false, label: false
+                  = f.button :submit, t(:filter_submit), class: 'btn btn-sm btn-success'
+        .panel-body
+          - unless @user_ads.empty?
+            table.table.table-sm.table-bordered
+              thead
+                tr
+                  th.text-center
+                    = t(:title)
+                  th.text-center
+                    = t(:description)
+                  th.text-center
+                    = t(:status)
+                  th.text-center
+                    = t(:actions)
+              tbody
+                - @user_ads.each do |ad|
+                  tr
+                    td.text-center
+                      = ad.title
+                    td.text-center
+                      = truncate(ad.description, :length => 30)
+                    td.text-center
+                      = ad.status
+                    td.text-center
+                      = link_to t(:show), ad, class: 'btn btn-sm btn-primary'
+                      - if can? :update, ad
+                        = link_to t(:edit), edit_ad_path(ad), class: 'btn btn-sm btn-primary'
+                      - if can? :destroy, ad
+                        = link_to t(:delete), ad, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+                      - if can? :status_new, ad
+                        = link_to t(:send_for_moderation), status_new_ad_path(ad), method: :put, data: { confirm: t(:are_you_sure_new) }, class: 'btn btn-sm btn-success'
+            .digg_pagination.text-center
+              = will_paginate @user_ads, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, :container => false
+          - else
+            h3.text-center
+              = t(:the_list_is_empty)
+#search-results

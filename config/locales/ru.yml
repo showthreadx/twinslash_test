@@ -1,0 +1,57 @@
+ru:
+  new_ad: "Создать объявление"
+  title: 'Название:'
+  title_placeholder: 'Введите название:'
+  description: 'Описание:'
+  description_hint: 'Будьте кратки'
+  type_select: 'Выберите тип своего объявления:'
+  type_select_prompt: 'Выберите тип:'
+  back: 'Назад'
+  create_ad_button: "Создать объявление"
+  my_archived_ads: 'Мой архив:'
+  search: 'Поиск:'
+  search_by_published: 'Поиск по опубликованным:'
+  search_placeholder: 'Введите параметры:'
+  search_submit: 'Найти'
+  choose_ad_type: 'Выберите тип:'
+  filter_submit: 'Фильтровать'
+  show: 'Открыть'
+  edit: 'Изменить'
+  delete: 'Удалить'
+  are_you_sure: 'Вы уверены?'
+  to_draft: 'Перевести в черновик'
+  are_you_sure_draft: 'Это объявление будет переведено в черновик. Продолжить?'
+  the_list_is_empty: 'Список объявлений пуст :('
+  status: 'Статус:'
+  actions: 'Действия:'
+  my_ads: 'Мои объявления:'
+  send_for_moderation: 'Отправить на модерацию'
+  are_you_sure_new: 'Объявление будет отправлено на модерацию. Продолжить?'
+  published_ads: 'Опубликованные объявления:'
+  email: 'Почта:'
+  ad_type: 'Тип:'
+  you_can_add_new: "Вы можете создать объявление"
+  here: 'Тут'
+  images: 'Изображения:'
+  no_images: 'Нет приклепленных изображений'
+  update: "Обновление:"
+  nav_main: "Главная"
+  nav_admin_panel: 'Перейти в Админ Панель'
+  nav_my_ads: 'Мои объявления'
+  nav_archive: "Архив"
+  edit_profile: 'Редактировать профиль'
+  sign_out: 'Выйти'
+  sign_in: 'Войти'
+  sign_up: 'Регистрация'
+  please_sign_in_up: "Пожалуйста, авторизуйтесь:"
+  edit_my_profile: 'Редактировать мой профиль:'
+  update_my_profile: 'Обновить профиль'
+  delete_my_profile: "Удалить аккаунт"
+  you_can_delete_your_account: "Все плохо? Вы можете удалить свой аккаунт:"
+  first_name: 'Имя'
+  last_name: 'Фамилия'
+  leave_blank: ' (Оставьте пустым, если не хотите менять)'
+  come_back: 'Возвращайтесь снова :)'
+  current_password: "Текущий пароль"
+  password: 'Пароль'
+  password_confirm: 'Повторите пароль'
