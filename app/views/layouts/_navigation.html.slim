@@ -52,10 +52,6 @@ header
             li
               p.navbar-btn
                 = link_to t(:sign_up), new_user_registration_path, class: 'btn btn-primary'
-      .container
-      - flash.each do |key, value|
-        |  <div class="alert alert-
-        = key
-        | "> 
-        = value
+      
+
                     
