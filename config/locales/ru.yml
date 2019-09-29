@@ -57,6 +57,7 @@ ru:
   password_confirm: 'Повторите пароль'
   search_ads: 'Найденные объявления:'
   no_ads_were_found: 'Объявления не найдены :('
+  characters_minimum: ' символов минимум'
   admin:
     js:
       true: 'True'

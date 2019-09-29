@@ -11,7 +11,8 @@
               = form_tag(URI(request.referer).path, method: "get", remote: true, class: 'form-inline') do
                   = label_tag(:search, t(:search))
                   = text_field_tag :search, params[:search], label: t(:search_by_published), class: 'form-control', placeholder: t(:search_placeholder)
-                  = submit_tag t(:search_submit), class: 'btn btn-sm btn-success'  
+                  = submit_tag t(:search_submit), class: 'btn btn-sm btn-success' 
+                  = link_to t(:back), url_for(:back), class: 'btn btn-sm btn-warning'     
       .panel-body
         - unless @search_result_ads.empty?
           table.table.table-sm.table-bordered

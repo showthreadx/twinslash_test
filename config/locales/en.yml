@@ -57,3 +57,4 @@ en:
   password_confirm: 'Confirm password'
   search_ads: 'Search result:'
   no_ads_were_found: 'Sorry, no ads were found :('
+  characters_minimum: ' characters minimum'

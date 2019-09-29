@@ -51,5 +51,5 @@
               = will_paginate @archive_ads, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, :container => false
           - else
             h2.text-center
-              | The list is empty :(
+              = t(:the_list_is_empty)
 #search-results

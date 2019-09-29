@@ -15,7 +15,7 @@
                   = submit_tag t(:search_submit), class: 'btn btn-sm btn-success'
             .col-md-4
               .text-left[style="margin-top: 20px"]
-                = search_form_for @filter, url: user_archive_ads_path, builder: SimpleForm::FormBuilder, wrapper: :horizontal_form, html: { class: 'form-inline'} do |f|
+                = search_form_for @filter, url: user_ads_ads_path, builder: SimpleForm::FormBuilder, wrapper: :horizontal_form, html: { class: 'form-inline'} do |f|
                   = label_tag(:ad_type_id_eq, t(:choose_ad_type))
                   = f.input :ad_type_id_eq, collection: AdType.all, required: false, label: false
                   = f.button :submit, t(:filter_submit), class: 'btn btn-sm btn-success'
