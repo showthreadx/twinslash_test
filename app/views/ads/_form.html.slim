@@ -1,0 +1,27 @@
+= simple_form_for @ad do |f|
+          = f.label :title, t(:title)
+          = f.input :title, label:false, required: true, placeholder: t(:title_placeholder)
+          = f.input :description, label: t(:description), required: true, hint: t(:description_hint)
+          = f.label :ad_type_id, t(:type_select)
+          = f.input :ad_type_id, label: false, required: true, collection: AdType.all, prompt: t(:type_select_prompt)
+          = f.file_field :images, multiple: true, class: "btn btn-primary btn-sm"
+          - if @ad.images.attached?
+            table.table.table-sm.table-bordered[style="margin-top: 20px"]
+              thead
+                tr
+                  th.text-center
+                    | Image
+                  th.text-center
+                    | Action
+              tbody
+                - @ad.images.each do |image|
+                  tr
+                    td.text-center
+                      = image_tag image.variant(resize: "80x80")
+                    td.text-center
+                      = link_to 'Delete', delete_image_ad_path(@ad, image_id: image), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-sm btn-warning"  
+            br
+          .text-center[style="margin-top: 10px"]
+            = f.button :submit, :class => "btn btn-lg btn-success"
+            = link_to t(:back), user_ads_ads_path, class: "btn btn-lg btn-info"
+            

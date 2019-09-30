@@ -1,5 +1,6 @@
 en:
   new_ad: "Create new Ad"
+  edit_ad: "Edit Advertising"
   title: 'Title'
   title_placeholder: 'Enter the title:'
   description: 'Description'

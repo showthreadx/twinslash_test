@@ -6,18 +6,7 @@
           .col-md-4
             h2.text-center
               = t(:my_archived_ads)
-          .col-md-4
-            .text-left[style="margin-top: 20px"]
-              = form_tag(user_archive_ads_path, method: "get", remote: true, class: 'form-inline') do
-                = label_tag(:search, t(:search))
-                = text_field_tag :search, params[:search], label: t(:search_by_published), class: 'form-control', placeholder: t(:search_placeholder)
-                = submit_tag t(:search_submit), class: 'btn btn-sm btn-success'
-          .col-md-4
-            .text-left[style="margin-top: 20px"]
-              = search_form_for @filter, url: user_archive_ads_path, remote: true, builder: SimpleForm::FormBuilder, wrapper: :horizontal_form, html: { class: 'form-inline'} do |f|
-                = label_tag(:ad_type_id_eq, t(:choose_ad_type))
-                = f.input :ad_type_id_eq, collection: AdType.all, required: false, label: false
-                = f.button :submit, t(:filter_submit), class: 'btn btn-sm btn-success'
+          = render('search_and_filter')
       .panel-body
         #search-results
           = render("results")
