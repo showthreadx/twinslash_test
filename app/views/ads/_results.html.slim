@@ -1,52 +1,39 @@
-.row
-  .col-md-8.col-md-offset-2
-    .panel.panel-success
-      .panel-heading.text-center
-        .row
-          .col-md-6
-            h2.text-right
-              = t(:search_ads)
-          .col-md-6
-            .text-left[style="margin-top: 20px"]
-              = form_tag(URI(request.referer).path, method: "get", remote: true, class: 'form-inline') do
-                  = label_tag(:search, t(:search))
-                  = text_field_tag :search, params[:search], label: t(:search_by_published), class: 'form-control', placeholder: t(:search_placeholder)
-                  = submit_tag t(:search_submit), class: 'btn btn-sm btn-success' 
-                  = link_to t(:back), url_for(:back), class: 'btn btn-sm btn-warning'     
-      .panel-body
-        - unless @search_result_ads.empty?
-          table.table.table-sm.table-bordered
-            thead.thead-dark
-              tr
-                th.text-center
-                  = t(:title)
-                th.text-center
-                  = t(:description)
-                th.text-center
-                  = t(:email)
-                th.text-center
-                  = t(:ad_type)
-                th.text-center
-                  = t(:actions)
-            tbody
-              - @search_result_ads.each do |ad|
-                tr
-                  td.text-center
-                    = ad.title
-                  td.text-center
-                    = truncate(ad.description, :length => 30)
-                  td.text-center
-                    = User.find(ad.user_id).email
-                  td.text-center
-                    = AdType.find(ad.ad_type_id).name
-                  td.text-center
-                    = link_to t(:show), ad, class: 'btn btn-sm btn-primary'
-                    - if can? :update, ad
-                      = link_to t(:edit), edit_ad_path(ad), class: 'btn btn-sm btn-primary'
-                    - if can? :destroy, ad
-                      = link_to t(:delete), ad, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
-        - else
-          h2.text-center
-            = t(:no_ads_were_found)
-        .digg_pagination.text-center
-          = paginate @search_result_ads, :container => false
+- unless @ads.empty?
+  table.table.table-sm.table-bordered
+    thead.thead-dark
+      tr
+        th.text-center
+          = sortable 'title', t(:title)
+        th.text-center
+          = sortable 'description', t(:description)
+        th.text-center
+          = t(:email)
+        th.text-center
+          = sortable 'ad_type_id', t(:ad_type_id)
+        th.text-center
+          = t(:actions)
+    tbody
+      - @ads.each do |ad|
+        tr
+          td.text-center
+            = ad.title
+          td.text-center
+            = truncate(ad.description, :length => 30)
+          td.text-center
+            = User.find(ad.user_id).email
+          td.text-center
+            = AdType.find(ad.ad_type_id).name
+          td.text-center
+            = link_to t(:show), ad, class: 'btn btn-sm btn-primary'
+            - if can? :update, ad
+              = link_to t(:edit), edit_ad_path(ad), class: 'btn btn-sm btn-primary'
+            - if can? :destroy, ad
+              = link_to t(:delete), ad, method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-sm btn-danger'
+  .digg_pagination.text-center
+    = will_paginate @ads, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, :container => false   
+- else
+  h2.text-center
+    = t(:the_list_is_empty)
+  p.text-center
+    = t("you_can_add_new")
+    = link_to 'Here', new_ad_path, class: 'btn btn-sm btn-success'             

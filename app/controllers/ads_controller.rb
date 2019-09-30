@@ -1,4 +1,5 @@
 class AdsController < ApplicationController
+  helper_method :sort_column, :sort_direction
   load_and_authorize_resource
   before_action :set_ad, only: [:show, :edit, :update, :destroy, :approve, :draft, :status_new]
   ActionController::Parameters.action_on_unpermitted_parameters = :raise
@@ -6,12 +7,9 @@ class AdsController < ApplicationController
   def index
     @filter = Ad.ransack(params[:q])
     if params[:search]
-      @search_result_ads = Ad.where(status: 4).search_by_title_and_description(params[:search]).paginate(page: params[:page], per_page: 10)
-      respond_to do |format|
-        format.js { render partial: 'search-results'}
-      end
+      @ads = Ad.where(status: 4).search_by_title_and_description(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
     else
-      @ads = @filter.result.where(status: 4).paginate(page: params[:page], per_page: 10)
+      @ads = @filter.result.where(status: 4).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
     end
   end
 
@@ -30,24 +28,18 @@ class AdsController < ApplicationController
   def user_ads
     @filter = Ad.ransack(params[:q])
     if params[:search]
-      @search_result_ads = Ad.where(['user_id = ? and status != ? and status != ?', current_user.id, 4, 5]).search_by_title_and_description(params[:search]).paginate(page: params[:page], per_page: 10)
-      respond_to do |format|
-        format.js { render partial: 'search-results'}
-      end
+      @ads = Ad.where(['user_id = ? and status != ? and status != ?', current_user.id, 4, 5]).search_by_title_and_description(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
     else
-      @user_ads = @filter.result.where(['user_id = ? and status != ? and status != ?', current_user.id, 4, 5]).paginate(page: params[:page], per_page: 10) 
+      @ads = @filter.result.where(['user_id = ? and status != ? and status != ?', current_user.id, 4, 5]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10) 
     end
   end
 
   def user_archive
     @filter = Ad.ransack(params[:q])
     if params[:search]
-      @search_result_ads = Ad.where(['user_id = ? and status = ?', current_user.id, 5]).search_by_title_and_description(params[:search]).paginate(page: params[:page], per_page: 10)
-      respond_to do |format|
-        format.js { render partial: 'search-results'}
-      end
+      @ads = Ad.where(['user_id = ? and status = ?', current_user.id, 5]).search_by_title_and_description(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
     else
-      @archive_ads = @filter.result.where(['user_id = ? and status = ?', current_user.id, 5]).paginate(page: params[:page], per_page: 10) 
+      @ads = @filter.result.where(['user_id = ? and status = ?', current_user.id, 5]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10) 
     end
   end
 
@@ -105,5 +97,14 @@ class AdsController < ApplicationController
 
   def ad_params
     params.require(:ad).permit(:title, :description, :user_id, :status, :ad_type_id, images: [])
+  end
+
+  def sort_column
+    Ad.column_names.include?(params[:sort]) ? params[:sort] : 'title'
+  end
+
+  def sort_direction
+    params[:direction] || 'asc'
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end

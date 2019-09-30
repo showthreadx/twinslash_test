@@ -1,63 +1,29 @@
-#ads-table
-  .row
-    .col-md-8.col-md-offset-2
-      .panel.panel-success
-        .panel-heading
-          .row
-            .col-md-4
-              h3.text-center
-                = t(:published_ads)
-            .col-md-4
-              .text-center[style="margin-top: 20px"]
-                .row
-                  = form_tag(ads_path, method: "get", remote: true, class: 'form-inline') do
-                    = label_tag(:search, t(:search))
-                    = text_field_tag :search, params[:search], label: t(:search_by_published), class: 'form-control', placeholder: t(:search_placeholder)
-                    = submit_tag t(:search_submit), class: 'btn btn-sm btn-success'
-            .col-md-4
-              .text-left[style="margin-top: 20px"]
-                = search_form_for @filter, builder: SimpleForm::FormBuilder, wrapper: :horizontal_form, html: { class: 'form-inline'} do |f|
-                  = label_tag(:ad_type_id_eq, t(:choose_ad_type))
-                  = f.input :ad_type_id_eq, collection: AdType.all, required: false, label: false
-                  = f.button :submit, t(:filter_submit), class: 'btn btn-sm btn-success'
-        .panel-body
-          - unless @ads.empty?
-            table.table.table-sm.table-bordered
-              thead.thead-dark
-                tr
-                  th.text-center
-                    = t(:title)
-                  th.text-center
-                    = t(:description)
-                  th.text-center
-                    = t(:email)
-                  th.text-center
-                    = t(:ad_type)
-                  th.text-center
-                    = t(:actions)
-              tbody
-                - @ads.each do |ad|
-                  tr
-                    td.text-center
-                      = ad.title
-                    td.text-center
-                      = truncate(ad.description, :length => 30)
-                    td.text-center
-                      = User.find(ad.user_id).email
-                    td.text-center
-                      = AdType.find(ad.ad_type_id).name
-                    td.text-center
-                      = link_to t(:show), ad, class: 'btn btn-sm btn-primary'
-                      - if can? :update, ad
-                        = link_to t(:edit), edit_ad_path(ad), class: 'btn btn-sm btn-primary'
-                      - if can? :destroy, ad
-                        = link_to t(:delete), ad, method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-sm btn-danger'
-          - else
-            h2.text-center
-              = t(:the_list_is_empty)
-            p.text-center
-              = t("you_can_add_new")
-              = link_to 'Here', new_ad_path, class: 'btn btn-sm btn-success'
-          .digg_pagination.text-center
-            = will_paginate @ads, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, :container => false
-#search-results
+.row
+  .col-md-8.col-md-offset-2
+    .panel.panel-success
+      .panel-heading
+        .row
+          .col-md-4
+            h3.text-center
+              = t(:published_ads)
+          .col-md-4
+            .text-center[style="margin-top: 20px"]
+              .row
+                = form_tag(ads_path, method: "get", remote: true, class: 'form-inline') do
+                  = hidden_field_tag :direction, params[:direction]
+                  = hidden_field_tag :sort, params[:sort]
+                  = label_tag(:search, t(:search))
+                  = text_field_tag :search, params[:search], label: t(:search_by_published), class: 'form-control', placeholder: t(:search_placeholder)
+                  = submit_tag t(:search_submit), class: 'btn btn-sm btn-success'
+          .col-md-4
+            .text-left[style="margin-top: 20px"]
+              = search_form_for @filter, builder: SimpleForm::FormBuilder, remote: true, wrapper: :horizontal_form, html: { class: 'form-inline'} do |f|
+                = label_tag(:ad_type_id_eq, t(:choose_ad_type))
+                = f.input :ad_type_id_eq, collection: AdType.all, required: false, label: false
+                = f.button :submit, t(:filter_submit), class: 'btn btn-sm btn-success'
+      .panel-body
+        #search-results
+          = render("results")
+        
+          
+        

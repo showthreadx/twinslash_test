@@ -17,3 +17,10 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
+
+$(function() {
+  $(document).on('click', "th a, .pagination a", function() {
+    $.getScript(this.href);
+    return false;
+  });
+});
