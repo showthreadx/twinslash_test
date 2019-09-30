@@ -24,9 +24,9 @@
             = truncate(ad.description, :length => 30)
           - unless params[:action] == "user_ads"  
             td.text-center
-              = User.find(ad.user_id).email
+              = ad.user.email
           td.text-center
-            = AdType.find(ad.ad_type_id).name
+            = ad.ad_type.name
           td.text-center
             = ad.status  
           td.text-center
