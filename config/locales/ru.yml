@@ -58,6 +58,7 @@ ru:
   search_ads: 'Найденные объявления:'
   no_ads_were_found: 'Объявления не найдены :('
   characters_minimum: ' символов минимум'
+  forgot_password: 'Забыли пароль?'
   admin:
     js:
       true: 'True'
