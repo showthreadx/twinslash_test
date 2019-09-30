@@ -6,10 +6,13 @@
           = sortable 'title', t(:title)
         th.text-center
           = sortable 'description', t(:description)
+        - unless params[:action] == "user_ads"  
+          th.text-center
+            = t(:email)
         th.text-center
-          = t(:email)
+          = sortable 'ad_type_id', t(:ad_type)
         th.text-center
-          = sortable 'ad_type_id', t(:ad_type_id)
+          = t(:status)  
         th.text-center
           = t(:actions)
     tbody
@@ -19,10 +22,13 @@
             = ad.title
           td.text-center
             = truncate(ad.description, :length => 30)
-          td.text-center
-            = User.find(ad.user_id).email
+          - unless params[:action] == "user_ads"  
+            td.text-center
+              = User.find(ad.user_id).email
           td.text-center
             = AdType.find(ad.ad_type_id).name
+          td.text-center
+            = ad.status  
           td.text-center
             = link_to t(:show), ad, class: 'btn btn-sm btn-primary'
             - if can? :update, ad
