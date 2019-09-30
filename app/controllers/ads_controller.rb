@@ -28,18 +28,18 @@ class AdsController < ApplicationController
   def user_ads
     @filter = Ad.ransack(params[:q])
     if params[:search]
-      @ads = Ad.where(['user_id = ? and status != ?', current_user.id, [4, 5]]).search_by_title_and_description(params[:search]).includes(:ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
+      @ads = Ad.where(user_id: current_user.id, status: [0, 1, 2, 3]).search_by_title_and_description(params[:search]).includes(:ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
     else
-      @ads = @filter.result.where(['user_id = ? and status != ?', current_user.id, [4, 5]]).includes(:ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10) 
+      @ads = @filter.result.where(user_id: current_user.id, status: [0, 1, 2, 3]).includes(:ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10) 
     end
   end
 
   def user_archive
     @filter = Ad.ransack(params[:q])
     if params[:search]
-      @ads = Ad.where(['user_id = ? and status = ?', current_user.id, 5]).search_by_title_and_description(params[:search]).includes(:user, :ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
+      @ads = Ad.where(user_id: current_user.id, status: 5).search_by_title_and_description(params[:search]).includes(:user, :ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
     else
-      @ads = @filter.result.where(['user_id = ? and status = ?', current_user.id, 5]).includes(:user, :ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10) 
+      @ads = @filter.result.where(user_id: current_user.id, status: 5).includes(:user, :ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10) 
     end
   end
 
@@ -61,8 +61,7 @@ class AdsController < ApplicationController
   end
 
   def create
-    @ad = Ad.new(ad_params)
-    @ad.user_id = current_user.id
+    @ad = current_user.ads.new(ad_params)
     if @ad.save!
       flash[:success] = 'Ad was succesfully created! You can see it in Your ads list.'
       redirect_to user_ads_ads_path
