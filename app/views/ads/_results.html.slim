@@ -14,7 +14,7 @@
         th.text-center
           = t(:status)  
         th.text-center
-          = t(:actions)
+          = t(:actions)  
     tbody
       - @ads.each do |ad|
         tr
@@ -35,6 +35,10 @@
               = link_to t(:edit), edit_ad_path(ad), class: 'btn btn-sm btn-primary'
             - if can? :destroy, ad
               = link_to t(:delete), ad, method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-sm btn-danger'
+            - if can? :status_new, ad
+              = link_to t(:send_for_moderation), status_new_ad_path(ad), method: :put, data: { confirm: t(:are_you_sure_new) }, class: "btn btn-sm btn-success"
+            - if can? :status_draft, ad  
+              = link_to t(:to_draft), status_draft_ad_path(ad), method: :put, data: { confirm: t(:are_you_sure_draft) }, class: "btn btn-sm btn-success"
   .digg_pagination.text-center
     = will_paginate @ads, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, :container => false   
 - else
