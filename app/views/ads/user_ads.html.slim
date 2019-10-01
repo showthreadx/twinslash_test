@@ -6,7 +6,7 @@
           .col-md-4
             h2.text-center
               = t(:my_ads)
-          = render("search_and_filter")
+          = render "search_and_filter", path: user_ads_ads_path
       .panel-body
         #search-results
           = render("results")
