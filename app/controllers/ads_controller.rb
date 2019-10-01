@@ -6,8 +6,8 @@ class AdsController < ApplicationController
 
   def index
     @filter = Ad.ransack(params[:q])
-    if params[:search]
-      @ads = Ad.where(status: 4).search_by_title_and_description(params[:search]).includes(:user, :ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
+    if params[:query]
+      @ads = Ad.where(status: 4).search(params[:query]).includes(:user, :ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
     else
       @ads = @filter.result.where(status: 4).includes(:user, :ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
     end
@@ -27,8 +27,8 @@ class AdsController < ApplicationController
 
   def user_ads
     @filter = Ad.ransack(params[:q])
-    if params[:search]
-      @ads = Ad.where(user_id: current_user.id, status: [0, 1, 2, 3]).search_by_title_and_description(params[:search]).includes(:ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
+    if params[:query]
+      @ads = Ad.where(user_id: current_user.id, status: [0, 1, 2, 3]).search(params[:query]).includes(:ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
     else
       @ads = @filter.result.where(user_id: current_user.id, status: [0, 1, 2, 3]).includes(:ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10) 
     end
@@ -36,8 +36,8 @@ class AdsController < ApplicationController
 
   def user_archive
     @filter = Ad.ransack(params[:q])
-    if params[:search]
-      @ads = Ad.where(user_id: current_user.id, status: 5).search_by_title_and_description(params[:search]).includes(:user, :ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
+    if params[:query]
+      @ads = Ad.where(user_id: current_user.id, status: 5).search(params[:query]).includes(:user, :ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10)
     else
       @ads = @filter.result.where(user_id: current_user.id, status: 5).includes(:user, :ad_type).order(sort_column + ' ' + sort_direction).paginate(page: params[:page], per_page: 10) 
     end

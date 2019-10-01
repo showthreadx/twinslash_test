@@ -13,7 +13,7 @@ ru:
   search: 'Поиск:'
   search_by_published: 'Поиск по опубликованным:'
   search_placeholder: 'Введите параметры:'
-  search_submit: 'Найти'
+  query_submit: 'Найти'
   choose_ad_type: 'Выберите тип:'
   filter_submit: 'Фильтровать'
   show: 'Открыть'

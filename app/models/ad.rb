@@ -5,6 +5,15 @@ class Ad < ApplicationRecord
     tsearch: { prefix: true }
   }
 
+  def self.search(query)
+    if query.present?
+      search_by_title_and_description(query)
+    else
+      # No query? Return all records, newest first.
+      order("created_at DESC")
+    end
+  end
+
   scope :new_ads, -> {
     where(status: 'new_ad')
   }

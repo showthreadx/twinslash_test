@@ -13,7 +13,7 @@ en:
   search: 'Search:'
   search_by_published: 'Search by published ads:'
   search_placeholder: 'Enter search params:'
-  search_submit: 'Search'
+  query_submit: 'Search'
   choose_ad_type: 'Choose Ad Type:'
   filter_submit: 'Filter'
   show: 'Show'

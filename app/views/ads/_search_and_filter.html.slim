@@ -4,8 +4,8 @@
       = hidden_field_tag :direction, params[:direction]
       = hidden_field_tag :sort, params[:sort]
       = label_tag(:search, t(:search))
-      = text_field_tag :search, params[:search], label: t(:search_by_published), class: 'form-control', placeholder: t(:search_placeholder)
-      = submit_tag t(:search_submit), class: 'btn btn-sm btn-success'
+      = text_field_tag :query, params[:query], label: t(:search_by_published), class: 'form-control', placeholder: t(:search_placeholder)
+      = submit_tag t(:query_submit), class: 'btn btn-sm btn-success'
 .col-md-4
   .text-left[style="margin-top: 20px"]
     = search_form_for @filter, url: path, remote: true, builder: SimpleForm::FormBuilder, wrapper: :horizontal_form, html: { class: 'form-inline'} do |f|
