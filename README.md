@@ -1,6 +1,6 @@
 ## Documentation
 
-See the [Rubydoc Project](https://rubydoc.info/github/showthreadx/twinslash_test/master) docs.
+See the [Rubydoc](https://rubydoc.info/github/showthreadx/twinslash_test/master)
 
 ## About
 
